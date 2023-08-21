@@ -1,0 +1,1 @@
+print("morradi er mann")
