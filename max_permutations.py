@@ -28,46 +28,20 @@ n_upper = 10
 # hver gang, om verdiene over ikke endres.
 seed = 0
 
-
-# def max_permutations(M):
-#     res = set()
-#     def backtrack(i):
-#         #ønsket plass ikke lik plass
-#         if M[i] != i:
-#             #person på ønsket plass er feilplassert, bytter
-#             if M[i] != M[M[i]]:
-#                 temp = M[M[i]]
-#                 M[M[i]] = M[i]
-#                 backtrack(M[i])
-#                 #dersom ikke den man byttet med havnet riktig, så må man bytte tilbake
-#                 if temp != M[temp]:
-#                     M[M[i]] = temp
-#                 #dersom nestemann havnet riktig, så lyktes byttet, og byttet kan legges til i res
-#                 res.add(M[i]) 
-#     for i in range(len(M)):
-#         backtrack(i)
-#     return res
-
 def max_permutations(M):
     res = set()
-    def backtrack(i):
-        #feil plass
-        if i != M[i]:
-            #neste er på feil plass
-            if M[M[i]] != M[M[M[i]]]:
-                temp = M[M[i]]
-                M[M[i]] = M[i]
-                backtrack
-                if temp != M[M[M[i]]]:
-                    M[M[i]] = temp
-                else:
-                    res.add(M[i])
-    for i in range(len(M)):
-        backtrack(i)
+    def backtrack(place, favoured):
+        if place == favoured : return
+        elif not favoured == M[favoured]:
+            occupant = M[favoured]
+            M[favoured], M[place] = favoured, occupant
+            backtrack(place, occupant)
+            if M[place] == occupant and not occupant == place:
+                M[favoured], M[place] = occupant, favoured
+            else:
+                res.update([favoured, occupant])
+    for i in range(len(M)) : backtrack(i, M[i])
     return res
-
-        
-        
 
 
 # Hardkodete instanser på formatet: (M, løsning)
