@@ -12,17 +12,17 @@ from itertools import combinations
 # Kontrollerer om koden skal kjøres på større hardkodete tester.
 # Disse inneholder mellom 10 og 100 studenter. Ellers har alle
 # eksemplene mindre enn 10 studenter.
-large_tests = False
+large_tests = True
 # Kontrollerer om det genereres tilfeldige instanser.
-generate_random_tests = False
+generate_random_tests = True
 # Antall tilfeldige tester som genereres
-random_tests = 10
+random_tests = 5
 # Lavest mulig antall studenter i generert instans.
-n_lower = 3
+n_lower = 20
 # Høyest mulig antall studenter i generert instans.
 # NB: Om denne verdien settes høyt (>20) vil det ta lang tid å verifisere
 # svarene.
-n_upper = 10
+n_upper = 25
 # Om denne verdien er 0 vil det genereres nye instanser hver gang.
 # Om den er satt til et annet tall vil de samme instansene genereres
 # hver gang, om verdiene over ikke endres.

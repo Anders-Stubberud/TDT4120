@@ -9,13 +9,13 @@ import random
 # kontrolleres ved å juste på verdiene under.
 
 # Kontrollerer om det genereres tilfeldige instanser.
-generate_random_tests = False
+generate_random_tests = True
 # Antall tilfeldige tester som genereres
-random_tests = 10
+random_tests = 50
 # Lavest mulig antall verdier i generert instans.
-n_lower = 3
+n_lower = 100
 # Høyest mulig antall verdier i generert instans.
-n_upper = 10
+n_upper = 200
 # Om denne verdien er 0 vil det genereres nye instanser hver gang.
 # Om den er satt til et annet tall vil de samme instansene genereres
 # hver gang, om verdiene over ikke endres.
