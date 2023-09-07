@@ -12,10 +12,10 @@ generate_random_tests = True
 # Antall tilfeldige tester som genereres
 random_tests = 10
 # Lavest mulig antall verdier i generert instans.
-n_lower = 3
+n_lower = 5
 # Høyest mulig antall verdier i generert instans.
 # NB: Om denne verdien settes høyt (>30) kan testene ta veldig lang tid.
-n_upper = 25
+n_upper = 9
 # Om denne verdien er 0 vil det genereres nye instanser hver gang.
 # Om den er satt til et annet tall vil de samme instansene genereres
 # hver gang, om verdiene over ikke endres.
@@ -37,15 +37,15 @@ def largest_cuboid(x):
             largest_cuboid = current_cuboid
 
         #sjekker om det skal utforskes videre (egt bruteforce, sjekker alle rektangulære kombinasjoner)
-        if x_coordinate < limit:
+        if x_end < limit:
             #kun gå videre i x-retning
-            explore(x_coordinate+1, y_coordinate)
-        if y_coordinate < limit:
+            explore(x_start, x_end+1, y_start, y_end)
+        if y_end < limit:
             #kun videre i y-retning
-            explore(x_coordinate, y_coordinate+1)
-        if x_coordinate < limit and y_coordinate < limit:
+            explore(x_start, x_end, y_start, y_end+1)
+        if x_end < limit and y_end < limit:
             #ekspandere i både x-retning og y-retning
-            explore(x_coordinate+1, y_coordinate+1)
+            explore(x_start, x_end+1, y_start, y_end+1)
 
     def shallowest_depth(x_start, x_end, y_start, y_end):
         shallowest_depth = math.inf
@@ -62,6 +62,8 @@ def largest_cuboid(x):
     for y_coordinate in range(len(x)):
         for x_coordinate in range(len(x)):
             explore(x_coordinate, x_coordinate, y_coordinate, y_coordinate)
+    
+    return largest_cuboid
 
 
 
