@@ -18,11 +18,11 @@ generate_random_tests = True
 # Antall tilfeldige tester som genereres
 random_tests = 5
 # Lavest mulig antall studenter i generert instans.
-n_lower = 20
+n_lower = 10
 # Høyest mulig antall studenter i generert instans.
 # NB: Om denne verdien settes høyt (>20) vil det ta lang tid å verifisere
 # svarene.
-n_upper = 25
+n_upper = 20
 # Om denne verdien er 0 vil det genereres nye instanser hver gang.
 # Om den er satt til et annet tall vil de samme instansene genereres
 # hver gang, om verdiene over ikke endres.

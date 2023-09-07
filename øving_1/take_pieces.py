@@ -13,7 +13,9 @@ def take_pieces(n):
     while ((n-9) % 8 != 0):
         res += 1
         n -= 1
-    return res if res > 0 else 1
+    return res if res > 0 else 69
+
+print(take_pieces(345))
 
 
 # Hardkodete tester på formatet: (n_pieces, svar)
