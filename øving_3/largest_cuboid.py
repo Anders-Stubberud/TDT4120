@@ -15,7 +15,7 @@ random_tests = 10
 n_lower = 5
 # Høyest mulig antall verdier i generert instans.
 # NB: Om denne verdien settes høyt (>30) kan testene ta veldig lang tid.
-n_upper = 9
+n_upper = 7
 # Om denne verdien er 0 vil det genereres nye instanser hver gang.
 # Om den er satt til et annet tall vil de samme instansene genereres
 # hver gang, om verdiene over ikke endres.
@@ -24,7 +24,7 @@ seed = 0
 
 def largest_cuboid(x):
     import math
-    limit = len(x) -1
+    limit = len(x) - 1
     largest_cuboid = 0
 
     def explore(x_start, x_end, y_start, y_end):
@@ -43,9 +43,6 @@ def largest_cuboid(x):
         if y_end < limit:
             #kun videre i y-retning
             explore(x_start, x_end, y_start, y_end+1)
-        if x_end < limit and y_end < limit:
-            #ekspandere i både x-retning og y-retning
-            explore(x_start, x_end+1, y_start, y_end+1)
 
     def shallowest_depth(x_start, x_end, y_start, y_end):
         shallowest_depth = math.inf

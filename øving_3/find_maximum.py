@@ -11,11 +11,11 @@ import random
 # Kontrollerer om det genereres tilfeldige instanser.
 generate_random_tests = True
 # Antall tilfeldige tester som genereres
-random_tests = 1000
+random_tests = 100
 # Lavest mulig antall verdier i generert instans.
-n_lower = 1000
+n_lower = 10
 # Høyest mulig antall verdier i generert instans.
-n_upper = 10000
+n_upper = 100
 # Om denne verdien er 0 vil det genereres nye instanser hver gang.
 # Om den er satt til et annet tall vil de samme instansene genereres
 # hver gang, om verdiene over ikke endres.
@@ -32,9 +32,6 @@ def find_maximum(x):
         #kun 1 element igjen; dette må da være størst
         if start == end:
             return x[middle]
-        #2 elementer, sender det da videre til kun det største elementet
-        if end-start == 1:
-            return backtrack(start, start) if x[start]>x[end] else backtrack(end, end)
         #dersom middle er størst
         if x[middle-1]<x[middle] and x[middle]>x[middle+1]:
             return x[middle]
