@@ -1,7 +1,8 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 import random
-
+import time
+start = time.time()
 
 # De lokale testene består av to deler. Et sett med hardkodete
 # instanser som kan ses lengre nede, og muligheten for å generere
@@ -11,15 +12,15 @@ import random
 # Kontrollerer om det genereres tilfeldige instanser.
 generate_random_tests = True
 # Antall tilfeldige tester som genereres
-random_tests = 100
+random_tests = 1000
 # Lavest mulig antall verdier i generert instans.
-n_lower = 10
+n_lower = 500
 # Høyest mulig antall verdier i generert instans.
-n_upper = 100
+n_upper = 1000
 # Om denne verdien er 0 vil det genereres nye instanser hver gang.
 # Om den er satt til et annet tall vil de samme instansene genereres
 # hver gang, om verdiene over ikke endres.
-seed = 0
+seed = 1
 
 
 def find_maximum(x):
@@ -41,6 +42,29 @@ def find_maximum(x):
         return backtrack(start, middle-1) if x[middle-1]>x[middle+1] else backtrack(middle+1, end)
 
     return backtrack(first_index, end_index)
+
+# def find_maximum ( x ) :
+#     return _find_maximum (x , 0 , len ( x ) - 1)
+# # Finner maksimum i området [low , high ]
+# def _find_maximum ( arr , low , high ) :
+# # Grunntilfelle
+#     if high - low < 2:
+#         return max( arr [ low ] , arr [ high ])
+#     mid = ( low + high ) // 2
+#     # Low ligger på toppen av listen
+#     if arr [ low ] > max ( arr [ low - 1] , arr [ low + 1]) :
+#         return arr [ low ]
+#     elif arr [ low - 1] < arr [ low ] < arr [ low + 1]:
+#         if arr [ mid ] < arr [ mid + 1] and arr [ mid ] > arr [ low ]:
+#         # Se 1. under
+#             return _find_maximum ( arr , mid , high )
+#     # Se 2. under
+#         return _find_maximum ( arr , low , mid )
+#     elif arr [ mid ] < arr [ low ] or arr [ mid ] < arr [ mid + 1]:
+#     # Se 3. under
+#         return _find_maximum ( arr , mid , high )
+#     # Se 4. under
+#     return _find_maximum ( arr , low , mid )
 
 
 # Hardkodete tester på format: (x, svar)
@@ -100,3 +124,5 @@ Riktig svar: {answer}
 
 if not failed:
     print("Koden ga riktig svar for alle eksempeltestene")
+end = time.time()
+print(end-start)

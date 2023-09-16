@@ -14,11 +14,11 @@ generate_random_tests = True
 # Antall tilfeldige tester som genereres.
 random_tests = 1000
 # Laveste mulige antall strenger i generert instans.
-n_strings_lower = 10
+n_strings_lower = 100
 # Høyest mulig antall strenger i generert instans.
-n_strings_upper = 100
+n_strings_upper = 1000
 # Laveste mulige antall tegn i hver streng i generert instans.
-n_chars_lower = 3
+n_chars_lower = 10
 # Høyest mulig antall tegn i hver streng i generert instans.
 n_chars_upper = 26
 # Antall forskjellige bokstaver som kan brukes i strengene. Må være mellom 1 og
@@ -27,35 +27,31 @@ n_diff_chars = 5
 # Om denne verdien er 0 vil det genereres nye instanser hver gang.
 # Om den er satt til et annet tall vil de samme instansene genereres
 # hver gang, om verdiene over ikke endres.
-seed = 0
+seed = 1
 
-def char_to_int(char):
-    return ord(char) - 97
-
-
+import time
+start = None
 def flexradix(A, n, d):
-    for i in range(d - 1, -1, -1):
-        A = counting_sort_tweaked(A, n, i)
+    global start
+    start=time.time()
+    # A.sort()
+    # return A
+    def char_to_int(char):
+        return ord(char)-97
+    def counting_sort_tweaked(A, n, index_in_word):
+        res,counter=[0]*n,[0]*27
+        for i in range(n):
+            value=char_to_int(A[i][index_in_word])+1 if len(A[i])>=index_in_word+1 else 0
+            counter[value]+=1
+        for i in range(1,len(counter)):counter[i]+=counter[i-1]
+        for i in range(n-1,-1,-1):
+            value = char_to_int(A[i][index_in_word])+1 if len(A[i])>=index_in_word+1 else 0
+            res[counter[value]-1]=A[i]
+            counter[value]-=1
+        return res
+    for i in range(d-1,-1,-1):A=counting_sort_tweaked(A,n,i)
     return A
 
-def counting_sort_tweaked(A, n, index_in_word):
-    res = [None] * n
-    #27 plasser gir plass til 26 bokstaver (a-z), og en plass til ordene som ikke hadde noe på index'en
-    counter = [0] * 27
-    for i in range(n):
-        value = 0
-        if len(A[i]) >= index_in_word + 1:
-            value = char_to_int(A[i][index_in_word]) + 1
-        counter[value] += 1
-    for i in range(1, len(counter)):
-        counter[i] += counter[i-1]
-    for i in range(n-1, -1, -1):
-        value = 0
-        if len(A[i]) >= index_in_word + 1:
-            value = char_to_int(A[i][index_in_word]) + 1
-        res[counter[value] - 1] = A[i]
-        counter[value] -= 1
-    return res
     
 
 
@@ -134,3 +130,5 @@ Riktig svar: {answer}
 
 if not failed:
     print("Koden ga riktig svar for alle eksempeltestene")
+end = time.time()
+print(end-start)

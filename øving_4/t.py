@@ -1,3 +1,2 @@
-l = [1,2,3]
-m = l[1:]
-print(m)
+a = ["kfkf", "aa", "a", "biovno", "biokja"]
+print(a[-5])
