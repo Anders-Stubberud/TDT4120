@@ -26,6 +26,23 @@ def k_largest(A, n, k):
     import random
     if k == 0: return []
 
+    #skal generere et element som er ganske greit medianmessig
+    def decent_pivot(liste, p, r):
+        lengde = len(liste)
+        while lengde % 5 != 0 and lengde > k:
+            for i in range(lengde):
+                if liste[i] < liste[1]:
+                    liste[i], liste[1] = liste[1], liste[i]
+            liste.pop(0)
+            lengde -= 1
+        if lengde == k : return liste[int(lengde/2)]
+        groups = lengde / 5
+        for i in range(groups):
+            custom_sort(liste[i],liste[i+groups],liste[i+2*groups],liste[i+3*groups],liste[i+4*groups])
+
+    def custom_sort():
+        pass
+
     def randomized_partition_providing_index_of_pivot(liste, p, r):
         random_index = random.randint(p, r) 
         pivot_element = liste[random_index]
