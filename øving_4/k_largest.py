@@ -39,6 +39,8 @@ def k_largest(A, n, k):
         groups = lengde / 5
         for i in range(groups):
             custom_sort(liste[i],liste[i+groups],liste[i+2*groups],liste[i+3*groups],liste[i+4*groups])
+        # x = decent_pivot(liste, 2*groups, 3*groups)
+        # q = 
 
     def custom_sort():
         pass
