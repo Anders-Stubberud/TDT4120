@@ -13,6 +13,8 @@ use_extra_tests = True
 
 import math
 
+#tests_sheet_cutting.txt må plasseres utenfor mappen for å kunne brukes
+
 def sheet_cutting(w, h, p):
     r = {}
     for lengde in range(1, h + 1):
@@ -21,10 +23,8 @@ def sheet_cutting(w, h, p):
             r[bredde, 0] = 0
             r[bredde, lengde] = p[bredde, lengde]
             q = -math.inf
-            for b in range(1, bredde + 1):
-                q = max(q, r[b, lengde] + r[bredde - b, lengde])
-            for l in range(1, lengde + 1):
-                q = max(q, r[bredde, l] + r[bredde, lengde - l])
+            for b in range(1, bredde + 1) : q = max(q, r[b, lengde] + r[bredde - b, lengde])
+            for l in range(1, lengde + 1) : q = max(q, r[bredde, l] + r[bredde, lengde - l])
             r[bredde, lengde] = q
     return r[w, h]
 
