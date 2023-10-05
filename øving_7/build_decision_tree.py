@@ -101,7 +101,6 @@ class Node:
     def __init__(self):
         self.left_child = None
         self.right_child = None
-print(build_decision_tree([('a', 0.5), ('b', 0.5)]))
 
 # Hardkodete tester på formatet:
 # decisions, gjennomsnittlig antall spørsmål i optimal løsning
