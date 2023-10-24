@@ -2,8 +2,6 @@
 # coding=utf-8
 import random
 import math
-import time
-start2 = time.time()
 
 # De lokale testene består av to deler. Et sett med hardkodete
 # instanser som kan ses lengre nedre, og muligheten for å generere
@@ -15,30 +13,34 @@ generate_random_tests = True
 # Antall tilfeldige tester som genereres.
 random_tests = 100
 # Lavest mulig antall tog i generert instans.
-trains_lower = 10
+trains_lower = 20
 # Høyest mulig antall tog i generert instans. Om denne verdien er satt høyt
 # (>120), kan det ta lang tid å generere instansene.
-trains_upper = 100
+trains_upper = 50
 # Om denne verdien er 0 vil det genereres nye instanser hver gang.
 # Om den er satt til et annet tall vil de samme instansene genereres
 # hver gang, om verdiene over ikke endres.
-seed = 1
+seed = 0
+
+import heapq
+
 
 def earliest_arrival(timetable, start, goal):
-    stations = {}
-    for entry in timetable:
-        u, v = entry[0], entry[1]
-        stations[u], stations[v] = math.inf, math.inf
-    stations[start] = 0
-    for _ in range(len(stations)):
-        idle = True
-        for entry in timetable:
-            u, v, ud, va = entry[0], entry[1], entry[2], entry[3]
-            if stations[u] <= ud and stations[v] > va:
-                stations[v] = va 
-                idle = False
-        if idle : break
-    return stations[goal]
+    departures = {}  # graf over togforbindelser
+    for station, destination, departure, arrival in timetable:
+        if station not in departures : departures[station] = set()
+        departures[station].add((destination, departure, arrival))
+    heap = [(0, start)]  # min priority av ankomsttider
+    arrivals = {start: 0}  # dict av ankomsttid, stasjon som key
+    while heap:
+        time, station = heapq.heappop(heap)
+        if station == goal : return time
+        if station in departures:
+            for destination, departure, arrival in departures[station]:
+                if ((destination not in arrivals) or (arrival < arrivals[destination])) and departure >= time:
+                    arrivals[destination] = arrival
+                    heapq.heappush(heap, (arrival, destination))
+    return math.inf #inf dersom det ikke er mulig å komme frem
 
 
 # Hardkodete tester på format: (tog, start, slutt), tidligst tidspunkt
@@ -204,14 +206,14 @@ def gen_examples(k, nl, nu):
         while len(stations) < ns:
             stations.add(
                 "".join(random.choices("ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-                                        k=math.ceil(math.log(ns, 20))))
+                                       k=math.ceil(math.log(ns, 20))))
             )
         stations = tuple(stations)
 
         T = []
         for _ in range(n):
-            t0 = random.randint(0, 10*n)
-            t1 = random.randint(t0 + 1, t0 + 1*n)
+            t0 = random.randint(0, 10 * n)
+            t1 = random.randint(t0 + 1, t0 + 1 * n)
             T.append((
                 *random.sample(stations, k=2),
                 t0,
@@ -233,7 +235,6 @@ def gen_examples(k, nl, nu):
         yield (T, s, g), slow_solve(T, s, g)
 
 
-
 if generate_random_tests:
     if seed:
         random.seed(seed)
@@ -249,7 +250,7 @@ for test_case, answer in tests:
     student = earliest_arrival(timetable[:], start, goal)
     if student != answer:
         if failed:
-            print("-"*50)
+            print("-" * 50)
         failed = True
         print(f"""
 Koden feilet for følgende instans.
@@ -264,9 +265,3 @@ Riktig svar: {answer}
 
 if not failed:
     print("Koden fungerte for alle eksempeltestene.")
-
-
-end = time.time()
-print(type(start2))
-print(type(end))
-print(end-start2)
