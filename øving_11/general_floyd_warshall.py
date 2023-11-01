@@ -1,7 +1,7 @@
 # !/usr/bin/python3
 # coding=utf-8
 import sys
-sys.set_int_max_str_digits(10**6)
+# sys.set_int_max_str_digits(10**6)
 
 
 # De lokale testene består av to deler. Et lite sett med hardkodete
@@ -11,11 +11,21 @@ sys.set_int_max_str_digits(10**6)
 # testene fra øvingssystemet, (2) legge den samme plass som denne
 # python-filen og (3) sette variabelen under til True. Merk at det kan
 # ta litt tid å kjøre alle de 500 ekstra testene.
-use_extra_tests = False
+use_extra_tests = True
+
+def transitive_closure(T, n, general_floyd_warshall):
+    # Velg funksjoner til Floyd-Warshall
+    def f(x, y):
+        # Hva skal f returnere? distanse; enten at det allerede finnes, eller at den kan finnes med k som intermediate
+        return x or y
+
+    def g(x, y):
+        # Hva skal g returnere? sammenslåing av k som intermediate
+        return x and y
 
 
 def general_floyd_warshall(D, n, f, g):
-    for k in range(1, n):
+    for k in range(n):
         for i in range(n):
             for j in range(n):
                 D[i][j] = f(D[i][j], g(D[i][k], D[k][j]))
